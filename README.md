@@ -8,13 +8,13 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Run projects
 
-Angular
+**Angular:
 
 npm install
 
 ng serve
 
-Node.js
+**Node.js:
 
 cd backend
 
