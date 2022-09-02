@@ -1,0 +1,74 @@
+.products {
+    margin-top: 10px;
+}
+
+.searchCategories {
+    padding: 5px;
+}
+
+.searchCategories ul {
+    list-style-type: none;
+}
+
+.searchCategories ul li a {
+    text-decoration: none;
+    color: #2d2f30;
+}
+
+.searchCategories ul li span a {
+    text-decoration: none;
+    color: #2d2f30;
+    font-weight: 500;
+}
+
+.searchCategories ul li a:hover,
+.searchCategories ul li span a:hover {
+    color: #b2d338;
+}
+
+.searchCategories ul li a:active,
+.searchCategories ul li span a:active {
+    color: #8baa19;
+}
+
+.showProducts {
+    padding: 10px;
+    border-left: 1px solid #2d2f30;
+}
+
+.product {
+    
+}
+
+.productImg img {
+    max-height: 100px;
+}
+
+.productDesc {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+}
+
+.productTitle {
+    font-weight: 500;
+}
+
+.search {
+    margin: 10px;
+}
+
+.displayItem {
+    display: block;
+}
+
+.hideItem {
+    display: none;
+}
+
+.resetIcon {
+    color: #ce4040;
+    cursor: pointer;
+}

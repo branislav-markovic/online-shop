@@ -1,0 +1,99 @@
+<div class="p-4">
+    <h1>Porudzbine</h1><hr>
+</div>
+
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Aktivne">
+        <div>
+            <div>
+                <div class="row" style="margin-right: 0px;">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3 mt-3">
+                        <mat-form-field>
+                            <input type="text" matInput (keyup)="filterActiveRecords($event.target.value)" (click)="$event.target.select()" placeholder="Pretraga porudzbina">
+                        </mat-form-field><mat-icon>search</mat-icon>
+                    </div>
+                </div>
+                <mat-table [dataSource]="dataSource" matSort #activeTable>
+                    <ng-container matColumnDef="sifra">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Sifra</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.sifra }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="datum">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Datum i vreme</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.datum }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proizvodi">
+                        <mat-header-cell *matHeaderCellDef>Proizvodi</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-icon style="cursor: pointer;" (click)="openDialog(element)">{{ element.proizvodi }}</mat-icon>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="akcije">
+                        <mat-header-cell *matHeaderCellDef>Akcije</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <button 
+                            (click)="cancelOrder(element.sifra, element._id)"
+                            mat-raised-button color="warn" style="white-space: normal;">
+                                <mat-icon>warning</mat-icon> Otkazi
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator [pageSize]="5" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Istorijat">
+        <div>
+            <div>
+                <div class="row" style="margin-right: 0px;">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3 mt-3">
+                        <mat-form-field>
+                            <input type="text" matInput (keyup)="filterHistoryRecords($event.target.value)" (click)="$event.target.select()" placeholder="Pretraga porudzbina">
+                        </mat-form-field><mat-icon>search</mat-icon>
+                    </div>
+                </div>
+                <mat-table [dataSource]="dataSourceHistory" #historyTable #historySort="matSort" matSort>
+                    <ng-container matColumnDef="sifra">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Sifra</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.sifra }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="datum">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Datum i vreme</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.datum }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proizvodi">
+                        <mat-header-cell *matHeaderCellDef>Proizvodi</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-icon style="cursor: pointer;" (click)="openDialog(element)">{{ element.proizvodi }}</mat-icon>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <mat-header-row *matHeaderRowDef="displayedColumnsHistory"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></mat-row>
+                </mat-table>
+                <mat-paginator [pageSize]="5" [pageSizeOptions]="pageSizeOptions" #historyPaginator></mat-paginator>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

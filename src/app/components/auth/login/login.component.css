@@ -1,0 +1,16 @@
+.loginLogo img {
+    max-height: 100px;
+}
+
+.loginForm {
+    border: 1px solid #cfc5c5;
+    border-radius: 5px;
+}
+
+mat-icon {
+    font-size: 20px;
+}
+
+.newUser span {
+    text-decoration: underline;
+}

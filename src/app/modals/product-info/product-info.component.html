@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>
+    Detaljne informacije o proizvodu
+    <button mat-raised-button class="ml-4" (click)="addToCart(data.product)">
+        <mat-icon>shopping_cart</mat-icon> Ubaci u korpu
+    </button>
+</h2>
+
+<div class="row mb-3" *ngIf="showItemAddedMsg">
+    <div class="col-md-12 ml-2">
+        <mat-card style="width: 95%;"><mat-icon>add_shopping_cart</mat-icon> Uspesno ste dodali proizvod u korpu.</mat-card>
+    </div>
+</div>
+
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="col-sm-12">
+                <img [src]="'assets/img/' + data.product.image" alt="product image" style="max-width: 400px; width: 100%;">
+            </p>
+            <p>
+                <strong>Kategorija proizvoda</strong>: {{ data.product.category }}
+            </p>
+            <p>
+                <strong>Naziv proizvoda</strong>: {{ data.product.name }}
+            </p>
+            <p style="max-width: 400px; text-align: justify;">
+                <strong>Opis proizvoda</strong>: {{ data.product.desc }}
+            </p>
+            <p>
+                <strong>Cena</strong>: {{ data.product.price.toFixed(2) }} RSD
+            </p>
+            <p>
+                <strong>Proizvodjac</strong>: {{ data.product.manuf }}
+            </p>
+            <p>
+                <strong>Vise o proizvodjacu</strong>: {{ !data.product.manufWeb ? '/' : data.product.manufWeb }}
+            </p>
+            <p>
+                <strong>Prodavac</strong>: {{ data.product.vendor }}
+            </p>
+            <p>
+                <strong>Zemlja porekla</strong>: {{ data.product.country }}
+            </p>
+            <div>
+                <p><strong>Recenzije korisnika</strong>:</p>
+                <div *ngFor="let comment of data.product.comments">
+                    <div>
+                        <i>Korisnik</i>: {{ comment.user }}
+                    </div>
+                    <div>
+                        <i>Ocena</i>: {{ comment.rating }}
+                    </div>
+                    <div style="max-width: 400px">
+                        <i>Komentar</i>: {{ comment.comment }}<hr>
+                    </div>
+                </div>
+                <p *ngIf="data.product.comments == null">Ne postoje recenzije za ovaj proizvod</p>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close color="primary">Close</button>
+</mat-dialog-actions>

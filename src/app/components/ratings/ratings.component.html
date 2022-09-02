@@ -1,0 +1,33 @@
+<div class="ratings">
+    <div class="row">
+        <div class="col-md-12 m-4">
+            <h1>Utisci korisnika</h1>
+            <hr>
+            <div class="mt-3">
+                <div class="row">
+                    <div class="col-md-3" *ngFor="let vendor of vendorList">
+                        <mat-card class="example-card mr-4 mb-4"  style="display: inline-block; min-height: 300px; max-height: 300px; overflow-y: auto;">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image"></div>
+                                <mat-card-title>{{ vendor }}</mat-card-title>
+                                <mat-card-subtitle>Prodavac</mat-card-subtitle>
+                            </mat-card-header>
+                            <div class="vendorImage" style="min-height: 120px;">
+                                <img mat-card-image [src]="'assets/img/' + getVendorImage(vendor)" alt="product">
+                            </div>
+                            <mat-card-content>
+                                <strong>Komentari</strong>:
+                                <ul *ngFor="let comment of orders[vendor]">
+                                    <li>{{ comment.comment }}
+                                        (Korisnik: <i>{{ comment.user }}</i>,<br> Kupio: <i>{{ comment.product }}</i>,<br> Datum: <i>{{ comment.date | date: "dd.MM.yyyy" }}</i>, <br>
+                                        Ocena: <i>{{ comment.rate }}</i>)
+                                    </li>
+                                </ul>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

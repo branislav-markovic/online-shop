@@ -1,0 +1,56 @@
+<div class="loginPage mb-5">
+    <div class="d-flex flex-column align-items-center">
+        <div class="row m-2">
+            <div class="d-flex justify-content-center">
+                <div class="loginLogo">
+                    <img src="/assets/img/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="loginForm p-4 mt-3">
+            <h2 class="ml-2">Prijava</h2>
+            <div class="row m-2" style="margin-bottom: 0px !important">
+                <mat-form-field>
+                    <mat-label>Korisnicko ime(email)</mat-label>
+                    <input type="text" matInput [(ngModel)]="username" placeholder="Unesite vase korisnicko ime" (click)="$event.target.select()" required>
+                </mat-form-field>
+            </div>
+            <span class="ml-2 text-danger" [hidden]="username">*obavezno polje</span>
+            <div class="row m-2" style="margin-bottom: 0px !important">
+                <mat-form-field>
+                    <mat-label>Lozinka</mat-label>
+                    <input type="password" matInput placeholder="Unesite lozinku" [(ngModel)]="password" (click)="$event.target.select()" required>
+                </mat-form-field>
+            </div>
+            <span class="ml-2 text-danger" [hidden]="password">*obavezno polje</span>
+            <div class="row m-2">
+                <button mat-raised-button color="warn" class="w-100" (click)="login()" [disabled]="!username || !password">
+                    <mat-icon>lock</mat-icon> Prijavi se
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-5">
+    <div class="d-flex flex-column align-items-center">
+        <div class="p-4">
+            <div class="text-center newUser">
+                <p class="m-0">
+                    Novi korisnik ?
+                </p>
+            </div>
+            <div class="text-center">
+                <mat-icon>arrow_downward</mat-icon>
+            </div>
+            <div class="text-center">
+                <button mat-raised-button color="accent" (click)="register()">
+                    <mat-icon>perm_identity</mat-icon> Registracija
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<app-copyright></app-copyright>

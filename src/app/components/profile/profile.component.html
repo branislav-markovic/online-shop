@@ -1,0 +1,90 @@
+<div class="profile">
+    <div class="row">
+        <div class="col-md-12 m-4">
+            <h1>Licni profil</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="container flexDiv">
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Korisnicko ime</mat-label>
+                    <input type="text" matInput [(ngModel)]="username" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Sifra</mat-label>
+                    <input type="password" matInput [(ngModel)]="password" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div> -->
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Ime: </mat-label>
+                    <input type="text" matInput [(ngModel)]="firstname" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Prezime </mat-label>
+                    <input type="text" matInput [(ngModel)]="lastname" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Email </mat-label>
+                    <input type="email" matInput [(ngModel)]="email" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Telefon </mat-label>
+                    <input type="text" matInput [(ngModel)]="phone" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Adresa </mat-label>
+                    <input type="text" matInput [(ngModel)]="address" (click)="$event.target.select()">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Omiljene vrste proizvoda</mat-label>
+                    <mat-select [(ngModel)]="products" multiple>
+                        <mat-option *ngFor="let singleProduct of productList" [value]="singleProduct">{{ singleProduct }}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button mat-raised-button color="warn" (click)="changeProfileDetails()">Izmeni</button>
+            </div>
+        </div>
+    </div>
+</div>

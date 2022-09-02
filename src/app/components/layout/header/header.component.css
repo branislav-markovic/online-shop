@@ -1,0 +1,9 @@
+.header {
+    min-height: 100px;
+    background: #212125;
+}
+
+.header img {
+    max-height: 100px;
+    vertical-align: bottom;
+}

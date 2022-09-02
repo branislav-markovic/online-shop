@@ -2,12 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>OnlineShop</title>
+  <title>Online Shop</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    df-messenger {
+     --df-messenger-bot-message: #878fac;
+     --df-messenger-button-titlebar-color: #6610f2;
+     --df-messenger-chat-background-color: #fafafa;
+     --df-messenger-font-color: white;
+     --df-messenger-send-icon: #6610f2;
+     --df-messenger-user-message: #949090;
+    }
+
+    .testCl {
+      min-width: 110px !important;
+      min-height: 110px !important;
+    }
+  </style>
 </head>
-<body>
+<body class="mat-typography">
   <app-root></app-root>
 </body>
+
+<!-- agent -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="Online shop"
+  agent-id="70b0964e-499c-4fef-8421-c6ac246aa07f"
+  language-code="en"
+></df-messenger>
+
+<script>
+  const dfMessenger = document.querySelector('df-messenger');
+  dfMessenger.addEventListener('df-request-sent', function (event) {
+    $r1 = document.querySelector("df-messenger");
+    $r2 = $r1.shadowRoot.querySelector("df-messenger-chat");
+    $r3 = $r1.shadowRoot.querySelector(".df-messenger-wrapper");
+    $r4 = $r2.shadowRoot.querySelector("df-message-list");
+    $r5 = $r4.shadowRoot.querySelector("#messageList");
+    $r6 = $r5.querySelector("df-chips");
+    
+    setTimeout(() => {
+      let nodes = $r5.childNodes;
+      let nodeLength = nodes.length;
+
+      nodes.forEach((node, index) => {
+        if (index + 1 == nodeLength) {
+          if (node.shadowRoot != null) {
+            let allLinks = node.shadowRoot.querySelectorAll(".chip-link");
+
+            allLinks.forEach(link => {
+              let img = link.querySelector("img");
+              link.classList.add("testCl");
+              link.style.minWidth = "200px";
+              link.style.minHeight = "100px";
+
+              img.style.minWidth = "40px";
+              img.style.minHeight = "20px";
+            });
+          }
+        }
+      });
+    }, 500);
+  });
+</script>
 </html>

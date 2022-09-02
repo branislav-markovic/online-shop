@@ -1,0 +1,13 @@
+.vendorList {
+    border: 1px solid #000;
+    margin: 25px;
+}
+
+.example-card {
+    max-width: 300px;
+}
+
+.example-header-image {
+    background-image: url('/assets/img/user_rating_press.jpg');
+    background-size: cover;
+}

@@ -1,0 +1,53 @@
+<div class="menu">
+    <div class="links d-none d-lg-block d-md-block">
+        <ul>
+            <li><a routerLink="home">Proizvodi</a></li>
+            <li><a routerLink="orders">Porudzbine</a></li>
+            <li><a routerLink="ratings">Utisci</a></li>
+            <li><a routerLink="cart">Korpa</a></li>
+            <li>
+                <button class="btn userBtn" (click)="profile()">
+                    <mat-icon>manage_accounts</mat-icon> 
+                    <span style="position: relative; top: -4px">{{ getUsername() }}</span>
+                </button>
+            </li>
+            <li>
+                <button class="btn logoutBtn" (click)="logout()">
+                    <mat-icon>power_settings_new</mat-icon> 
+                    <span style="position: relative; top: -4px">Logout</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="links linksMobile d-lg-none d-md-none">
+        <button mat-button [matMenuTriggerFor]="menu" class="hamburger">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>home</mat-icon>
+                <a routerLink="home">Proizvodi</a>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>assignment</mat-icon>
+                <a routerLink="orders">Porudzbine</a>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>history</mat-icon>
+                <a routerLink="ratings">Utisci</a>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>shopping_cart</mat-icon>
+                <a routerLink="cart">Korpa</a>
+            </button>
+            <button mat-menu-item (click)="profile()">
+                <mat-icon>manage_accounts</mat-icon> 
+                <a href="javascript:void(0);">{{ getUsername() }}</a>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>power_settings_new</mat-icon>
+                <a href="javascript:void(0);">Logout</a>
+            </button>
+        </mat-menu>
+    </div>
+</div>

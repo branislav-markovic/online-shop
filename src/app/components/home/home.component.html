@@ -1,0 +1,146 @@
+<div class="products">
+    <div class="row mb-2">
+        <!-- pretraga po kategorijama -->
+        <div class="searchCategories col-md-3 mt-4">
+            <ul>
+                <li class="mb-3">
+                    <span><strong>Kategorije</strong></span>
+                </li>
+                <li>
+                    <span>
+                        <a href="javascript: void(0);" class="catLinks tehnikaLink" (click)="showCategoryItems('tehnika')">Tehnika</a>
+                    </span>
+                    <ul>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks audio_komponenteLink" (click)="showCategoryItems('audio_komponente')">Audio komponente</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks zvucniciLink" (click)="showCategoryItems('zvucnici')">Zvucnici</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);"  class="catLinks racunariLink" (click)="showCategoryItems('racunari')">Racunari</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span>
+                        <a href="javascript: void(0);" class="catLinks sportska_opremaLink" (click)="showCategoryItems('sportska_oprema')">Sportska oprema</a>
+                    </span>
+                    <ul>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks sportska_obucaLink" (click)="showCategoryItems('sportska_obuca')">Sportska obuca</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks sportska_odecaLink" (click)="showCategoryItems('sportska_odeca')">
+                                Sportska odeca
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks sportski_rekvizitiLink" (click)="showCategoryItems('sportski_rekviziti')">
+                                Sportski rekviziti
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span>
+                        <a href="javascript: void(0);" class="catLinks knjigeLink" (click)="showCategoryItems('knjige')">Knjige</a>
+                    </span>
+                    <ul>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks strucna_literaturaLink" (click)="showCategoryItems('strucna_literatura')">Strucna literatura</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks ostala_literaturaLink" (click)="showCategoryItems('ostala_literatura')">Ostala literatura</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="catLinks casopisiLink" (click)="showCategoryItems('casopisi')">Casopisi</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul><br>
+            
+            <ul>
+                <li class="mb-3">
+                    <span><strong>Kolicina</strong></span><br>
+                    <mat-form-field>
+                        <mat-select (selectionChange)="searchQuantity()" [(ngModel)]="quantity" placeholder="Dostupno vise od">
+                            <mat-option *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="number">{{ number }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-icon class="resetIcon ml-4" (click)="resetFilters('kolicina')">cancel</mat-icon>
+                </li>
+                <li class="mb-3">
+                    <span><strong>Vreme isporuke</strong></span><br>
+                    <mat-form-field>
+                        <mat-select placeholder="Max broj dana" (selectionChange)="searchDeliveryTime()" [(ngModel)]="shippingDays">
+                            <mat-option *ngFor="let day of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="day">{{ day }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-icon class="resetIcon ml-4" (click)="resetFilters('isporuka')">cancel</mat-icon>
+                </li>
+                <li class="mb-3">
+                    <span><strong>Ocene drugih korisnika</strong></span><br>
+                    <mat-form-field>
+                        <mat-select [(ngModel)]="rating" (selectionChange)="searchRating()">
+                            <mat-option *ngFor="let ocena of ['1+', '2+', '3+', '4+']" [value]="ocena">{{ ocena }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-icon class="resetIcon ml-4" (click)="resetFilters('ocena')">cancel</mat-icon>
+                </li>
+                <li class="mb-3">
+                    <span><strong>Cena (RSD)</strong></span><br>
+                    <mat-form-field>
+                        <input type="number" placeholder="Od" matInput [(ngModel)]="priceMin" (keyup)="searchPrice()" (click)="$event.target.select()">
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <input type="number" placeholder="Do" matInput [(ngModel)]="priceMax" (keyup)="searchPrice()" (click)="$event.target.select()">
+                    </mat-form-field>
+                    <!-- <mat-icon class="resetIcon ml-4" (click)="resetFilters('price')">cancel</mat-icon> -->
+                </li>
+            </ul>
+        </div>
+
+        <!-- prikaz proizvoda -->
+        <div class="showProducts col-md-9">
+            <div class="row" *ngIf="showItemAddedMsg">
+                <div class="col-md-12 ml-2">
+                    <mat-card style="width: 95%;"><mat-icon>add_shopping_cart</mat-icon> Uspesno ste dodali proizvod u korpu.</mat-card>
+                </div>
+            </div>
+            <div class="row search">
+                <div class="col-md-9"></div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input (keyup)="searchProducts()" type="search" matInput placeholder="Pretraga proizvoda" [(ngModel)]="search" (click)="$event.target.select()">
+                    </mat-form-field>
+                    <mat-icon>search</mat-icon>
+                </div>
+            </div>
+            <div class="row">
+                <!-- product -->
+                <div *ngFor="let singleProduct of products" [class]="'product col-md-3 ml-5 mb-4 ' + singleProduct.className">
+                        <span class="productImg">
+                        <img [src]="'assets/img/' + singleProduct.image" alt="product image">
+                    </span>
+                    <p class="productTitle">
+                        {{ singleProduct.name }}
+                    </p>
+                    <p class="productDesc">
+                        {{ singleProduct.desc }}
+                    </p>
+                    <p class="avgRating">Ocena korisnika: {{ getProductRating(singleProduct.productCode) }}</p>
+                    <p class="productPrice">Cena: {{ singleProduct.price.toFixed(2) }} RSD</p>
+                    <div>
+                        <button mat-raised-button color="primary" class="mr-2 mb-2" (click)="openDialog(singleProduct)">
+                            <mat-icon>info</mat-icon> Saznajte vise
+                        </button>
+                        <button mat-raised-button (click)="addToCart(singleProduct)">
+                            <mat-icon>shopping_cart</mat-icon> Ubaci u korpu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

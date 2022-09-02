@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Naruceni proizvodi</h2>
+
+<mat-dialog-content>
+    <p>Osnovne informacije o porudzbini</p>
+    <div>
+        <strong>Sifra</strong>: {{ data.order.sifra }}
+    </div>
+    <div>
+        <strong>Datum i vreme</strong>: {{ data.order.datum }}
+    </div>
+    <div>
+        <strong>Status</strong>: {{ data.order.status }}
+    </div>
+    <br>
+    <div>
+        <p>
+            <strong>Naruceni proizvodi</strong>:
+        </p>
+        <ul *ngFor="let proizvod of data.order.listaProizvoda" style="margin: 0px; padding: 0px;" class="mb-4">
+            <strong>Prodavac</strong>: {{ proizvod.vendor }}
+            <div *ngIf="!proizvod.rated && data.order.status == 'Zavrsena'" class="mt-2">
+                <mat-form-field  class="ml-2 w-25">
+                    <mat-label>Oceni prodavca</mat-label>
+                    <mat-select [(ngModel)]="currentRating">
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="3">3</mat-option>
+                        <mat-option value="4">4</mat-option>
+                        <mat-option value="5">5</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="ml-2" style="cursor: pointer;" (click)="addCommentBox(proizvod.sifraProizvoda)"><mat-icon>add_comment</mat-icon>Dodaj recenziju</span>
+                <a href="javascript:void(0);" style="text-decoration: none; outline: 0;" (click)="rateVendor(proizvod, data.order.sifra, proizvod.sifraProizvoda)">
+                    <mat-icon class="ml-3">check_circle</mat-icon>
+                </a>
+                <div class="mb-2" [id]="'commentBoxDiv' + proizvod.sifraProizvoda" style="display: none;">
+                    <mat-form-field>
+                        <textarea matInput cols="20" rows="2" placeholder="Vas komentar" [id]="'commentBox' + proizvod.sifraProizvoda"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <p *ngIf="proizvod.rated">Ocena za ovog prodavca <strong>({{ proizvod.rate }})</strong></p>
+            <li style="margin-left: 30px;">
+                {{ proizvod.product }}
+            </li>
+        </ul>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close color="primary">OK</button>
+</mat-dialog-actions>

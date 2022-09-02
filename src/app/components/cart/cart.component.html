@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-md-12 p-4">
+        <h1 class="ml-4">
+            Korpa
+        </h1><hr>
+    </div>
+    <div class="col-md-12 p-4">
+        <mat-card class="mb-4" *ngFor="let item of cartItems">
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <img [src]="'assets/img/' + item.image" alt="product-cart" class="cart-image">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <h2>{{ item.product }}</h2><hr>
+                        <p>Prodavac: {{ item.vendor }}</p>
+                        <p>
+                            Kolicina: 
+                            <mat-form-field>
+                                <mat-select [(ngModel)]="item.quantity" (selectionChange)="updateCart(item.sifraProizvoda, $event.value)">
+                                    <mat-option [value]="1">1</mat-option>
+                                    <mat-option [value]="2">2</mat-option>
+                                    <mat-option [value]="3">3</mat-option>
+                                    <mat-option [value]="4">4</mat-option>
+                                    <mat-option [value]="5">5</mat-option>
+                                    <mat-option [value]="6">6</mat-option>
+                                    <mat-option [value]="7">7</mat-option>
+                                    <mat-option [value]="8">8</mat-option>
+                                    <mat-option [value]="9">9</mat-option>
+                                    <mat-option [value]="10">10</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+                        <p>Cena: {{ item.price.toFixed(2) }} RSD</p>
+                        <p>
+                            <button mat-raised-button color="warn" (click)="deleteItem(item.sifraProizvoda)"><mat-icon>delete</mat-icon>Izbaci iz korpe</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+        <div class="finish" *ngIf="cartItems.length > 0">
+            <div class="row">
+                <div class="col-md-9">
+                    <mat-card *ngIf="showFinalOrder">
+                        <p class="mt-2 font-weight-bold">
+                            Podaci za slanje
+                            <span class="float-right text-danger" style="cursor: pointer;" (click)="cancelOrderDetails()">X</span>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Ime" [(ngModel)]="firstname" (click)="$event.target.select()">
+                                </mat-form-field><br>
+                                <span class="text-danger" [hidden]="firstname">*obavezno polje</span> 
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Prezime" [(ngModel)]="lastname" (click)="$event.target.select()">
+                                </mat-form-field><br>
+                                <span class="text-danger" [hidden]="lastname">*obavezno polje</span> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field class="mr-4">
+                                    <input type="text" matInput placeholder="Grad" [(ngModel)]="city" (click)="$event.target.select()">
+                                </mat-form-field><br>
+                                <span class="text-danger" [hidden]="city">*obavezno polje</span> 
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="mr-4">
+                                    <input type="text" matInput placeholder="Postanski broj" [(ngModel)]="postalCode" (click)="$event.target.select()">
+                                </mat-form-field><br>
+                                <span class="text-danger" [hidden]="postalCode">*obavezno polje</span> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field class="mr-4">
+                                    <input type="text" matInput placeholder="Adresa" [(ngModel)]="address" (click)="$event.target.select()">
+                                </mat-form-field><br>
+                                <span class="text-danger" [hidden]="address">*obavezno polje</span> 
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="mr-4">
+                                    <input type="text" matInput placeholder="Telefon" [(ngModel)]="phone" (click)="$event.target.select()">
+                                </mat-form-field><br>
+                                <span class="text-danger" [hidden]="phone">*obavezno polje</span> 
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 mt-3">
+                                <p>Ukupno za naplatu: <strong>{{ total }}</strong> RSD + troskovi dostave</p><br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button mat-raised-button color="primary" 
+                                    (click)="makeOrder()"
+                                    [disabled]="!firstname || !lastname || !city || !postalCode || !address || !phone"
+                                >
+                                    Potvrdjujem narudzbinu
+                                </button>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="col-md-3" *ngIf="!showFinalOrder">
+                    <mat-card>
+                        <p>
+                            Ukupno: <strong>{{ total }}</strong> RSD
+                        </p>
+                        <section>
+                            <mat-checkbox color="warn" [(ngModel)]="termsAgree">Slazem se sa uslovima prodaje <a href="javascript:void(0);" (click)="detailsModal()">(detaljnije)</a></mat-checkbox> 
+                        </section>
+                        <button mat-raised-button color="primary" class="mt-3" (click)="orderDetails()" [disabled]="!termsAgree">Naruci proizvode</button>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="cartItems.length == 0">
+            <div class="col-md-3">
+                <img src="/assets/img/cart_empty.jpg" alt="empty-cart">
+            </div>
+            <div class="col-md-5 mt-5 ml-0" style="font-size: 1.2rem; font-weight: 500;">
+                Vasa korpa je trenutno prazna.
+            </div>
+        </div>
+
+    </div>
+</div>
