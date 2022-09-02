@@ -9,10 +9,15 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ## Run projects
 
 Angular
+
 npm install
+
 ng serve
 
 Node.js
+
 cd backend
+
 npm install
+
 npx nodemon index.js
